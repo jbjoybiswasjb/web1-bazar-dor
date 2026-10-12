@@ -1,13 +1,11 @@
-"user client"
-
 import { Suspense } from "react";
 import CategoryHeader from "@/components/category/categoryHeader";
-import CategoryProducts, { Product } from "@/components/category/CategoryProducts";
+import CategoryProducts from "@/components/category/CategoryProducts";
 import EmptyCategory from "@/components/category/EmptyCategory";
 
 interface CategoryPageProps {
   params: Promise<{
-    categoryNameBn: string;
+    categoryNameBn: string; // This holds the URL slug value (e.g., "chal")
   }>;
 }
 
@@ -41,26 +39,20 @@ async function CategoryContentWrapper({ params }: CategoryPageProps) {
   const { categoryNameBn } = await params;
   const { products, hasError } = await fetchCategoryData(categoryNameBn);
 
-  const categoryIcons: Record<string, string> = {
-    chal: "🍚",
-    mach: "🐟",
-    mangsho: "🥩",
-    sobji: "🥬",
-    fol: "🍎",
-  };
-
-  const categoryIcon = categoryIcons[categoryNameBn] ?? "🛒";
-
   return (
     <>
-      <CategoryHeader
-        name={categoryNameBn}
-        icon={categoryIcon}
-        productCount={products.length}
-      />
+      {/* Passing ONLY the products array down here */}
+      <CategoryHeader products={products} />
 
       <section id="category-products" className="mt-8">
         <div className="mb-6 flex flex-col gap-4">
+          <div>
+            <h2 className="text-2xl font-bold">সকল পণ্য</h2>
+            <p className="mt-1 text-sm text-gray-500">
+              এই ক্যাটাগরির পণ্যের দাম দেখুন।
+            </p>
+          </div>
+
           {!hasError && products.length > 0 && (
             <CategoryProducts products={products} />
           )}

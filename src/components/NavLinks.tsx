@@ -19,7 +19,7 @@ const NavLinks = async () => {
                     {
                         data.map((item: MenuItem) => (
                             <li key={item.id}>
-                                <Link href={`${item.slug}`}>
+                                <Link href={`/${item.slug}`}>
                                     {item.icon} {item.nameBn}
                                 </Link>
                             </li>

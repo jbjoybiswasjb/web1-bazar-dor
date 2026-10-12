@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import PriceChangeBadge from "./PriceChangeBadge";
+import Link from "next/link";
 
 interface Product {
   id: number;
@@ -30,8 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const router = useRouter();
 
   return (
-    <button
-      onClick={() => router.push(`/product/${product.slug ?? product.id}`)}
+    <Link href={`/singleProduct/${product.id}`}
       className="w-full text-left bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl shadow-sm cursor-pointer transition-all duration-200 hover:-translate-y-1 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-hidden"
     >
       <div className="p-5">
@@ -61,6 +61,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           <PriceChangeBadge change={product.change} />
         </div>
       </div>
-    </button>
+    </Link>
   );
 }
