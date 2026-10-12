@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <NavLinks />
           </Suspense>        
         </header>
-        <main>
+        <main className="bg-teal-50">
           {children}
         </main>
         <footer>
