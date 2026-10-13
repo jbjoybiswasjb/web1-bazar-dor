@@ -4,6 +4,7 @@ import Image from "next/image";
 import LogoImage from "../../public/logo-icon.png"
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import UserInfo from "./UserInfo";
 
 const Header = () => {
 
@@ -34,11 +35,9 @@ const Header = () => {
                         </div>
                     </div>
                 </Link>
-
-                <div className="flex gap-2">
-                    <Link href={"/signin"} className="btn btn-ghost">সাইন ইন</Link>
-                    <Link href={"/signup"} className="btn btn-success">সাইন আপ</Link>
-                </div>
+                
+                {/* Sign in and Singnup buton */}
+                <UserInfo></UserInfo>
             </div>
         </div>
     );
