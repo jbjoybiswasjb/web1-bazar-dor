@@ -36,8 +36,8 @@ const Header = () => {
                 </Link>
 
                 <div className="flex gap-2">
-                    <button className="btn btn-ghost">সাইন ইন</button>
-                    <button className="btn btn-success">সাইন আপ</button>
+                    <Link href={"/signin"} className="btn btn-ghost">সাইন ইন</Link>
+                    <Link href={"/signup"} className="btn btn-success">সাইন আপ</Link>
                 </div>
             </div>
         </div>
