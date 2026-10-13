@@ -2,6 +2,7 @@
 import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const SignUpPage = () => {
 
@@ -16,10 +17,12 @@ const SignUpPage = () => {
         })
 
         if (data) {
+            toast.success("Sign In Successful!");
             console.log(data)
             redirect("/");
         }
         if (error) {
+            toast.error(error?.message as string);
             console.log(error)
         }
     }

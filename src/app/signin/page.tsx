@@ -1,22 +1,49 @@
+"use client"
+
+import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React from 'react';
+import toast from 'react-hot-toast';
 
 const SignInPage = () => {
+
+    const onSubmit = async (e: React.SubmitEvent<HTMLElement>) => {
+        e.preventDefault()
+        const formData = new FormData(e.target);
+        const user = Object.fromEntries(formData.entries()) as { email: string, password: string };
+        console.log(user)
+        const { data, error } = await authClient.signIn.email({
+            ...user,
+            callbackURL: "/"
+        })
+
+        if (data) {
+            toast.success("Sign In Successful!");
+            console.log(data)
+            redirect("/");
+        }
+        if (error) {
+            toast.error(error?.message as string);
+            console.log(error)
+        }
+    }
+
     return (
         <div className=' my-8 md:my-14'>
             <div className='text-center'>
                 <h2 className='text-bold text-3xl'>সাইন ইন</h2>
                 <p className='mt-2 mb-6'>বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে ঢুকুন।</p>
             </div>
-            <form action="">
+            <form onSubmit={onSubmit}>
                 <fieldset className="fieldset bg-white border-base-300 rounded-box w-md mx-auto border p-4">
                     <label className="label text-lg">ইমেইল</label>
-                    <input type="email" className="input w-full text-md" placeholder="You@example.com" />
+                    <input name="email" type="email" className="input w-full text-md" placeholder="You@example.com" />
 
                     <label className="label text-lg">পাসওয়ার্ড</label>
-                    <input type="password" className="input w-full text-md" placeholder="কমপক্ষে ৮ অক্ষর" />
+                    <input name="password" type="password" className="input w-full text-md" placeholder="কমপক্ষে ৮ অক্ষর" />
 
-                    <button className="btn btn-success mt-4">সাইন ইন</button>
+                    <button type='submit' className="btn btn-success mt-4">সাইন ইন</button>
                     <div className="divider">অথবা</div>
 
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
@@ -33,7 +60,7 @@ const SignInPage = () => {
                     </div>
 
                     <p className='text-lg text-center my-3'>
-                        অ্যাকাউন্ট নেই? <Link href={"/signup"} className='text-green-600 hover:underline'>সাইন আপ করুন</Link>
+                        অ্যাকাউন্ট নেই? <Link href={"/"} className='text-green-600 hover:underline'>সাইন আপ করুন</Link>
                     </p>
                 </fieldset>
             </form>
